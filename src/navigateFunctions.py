@@ -1,21 +1,23 @@
 
 import random
 import logging
-import stormtest.ClientAPI as StormTest
 
 log = logging.getLogger("userAction")
 
 def goToCatalog(device, catalogName):
     appCommands = device.getAppCommands()
+    appCommands.openMenu() 
     
-    appCommands.openMenu()
-    result, comment, image = appCommands.openCatalog(catalogName)
-    return result, comment, image
+    if catalogName == "Sky TG24":
+        return appCommands.openSkyTG24(catalogName)
+    else:
+        return appCommands.openCatalog(catalogName)
+    pass
 
 
 def playVideo(device, serviceInfo): 
     if serviceInfo['name'] == 'Sky TG24':
-        return startSkyTG24(device)
+        return _playSkyTG24(device)
     
     videoName = _pickRandomVideo(device)
     if _findVideo(device, videoName):
@@ -23,7 +25,7 @@ def playVideo(device, serviceInfo):
     return False
 
 
-def startSkyTG24(device):
+def _playSkyTG24(device):
     # waitColor match
     device.tap(mappedText='PLAYSkyTG24')
     #waitColorMatch ?
@@ -50,7 +52,7 @@ def _startVideo(device):
     # waitColomatch?
     
     
-def stopRandomVideo(device):
+def stopVideo(device):
     device.tap(mappedText='closeVideo')
     device.tap(mappedText='closeVideo')
     # waitColormatch

@@ -54,22 +54,28 @@ class AppCommands(DeviceCommands):
         return True
     
     
+    def openSkyTG24(self, catalogName):
+        self._device.tap(text=catalogName)
+        
+        match = StormTest.WaitColorMatch(color=(233,235,233), tolerances=(16,16,16), flatness=95, peakError=15, includedAreas=[322,362,7,7], timeToWait=60)
+        image = StormTest.CaptureImageEx(None, 'Catalog', slotNo=True)[2]
+        
+        if not match[0][1]:
+            comment = 'Match color failed on opening {0} catalog {1}'.format(catalogName, match)
+            log.error(comment)
+            return False, comment, image
+    
+        comment = 'Match color successful on opening {0} catalog {1}'.format(catalogName, match)
+        log.info(comment)
+        return True, comment, image
+    
+    
     def openCatalog(self, catalogName):
         self._device.tap(text=catalogName)     
+         
+        StormTest.WaitSec(5)
         
-        if catalogName is 'Sky TG24':
-            color = (233,235,233)
-            flatness=95
-            peakError=20
-            includedAreas = [322,362,9,10]
-        else:
-            color = (41,116,168)
-            flatness=10
-            peakError=85
-            includedAreas = [495,280,663,445]
-        #StormTest.WaitSec(5)
-        
-        match = StormTest.WaitColorNoMatch(color=color, tolerances=(16,16,16), flatness=flatness, peakError=peakError, includedAreas=includedAreas, timeToWait=60)
+        match = StormTest.WaitColorNoMatch(color=(41,116,168), tolerances=(16,16,16), flatness=10, peakError=85, includedAreas=[495,280,663,445], timeToWait=60)
         image = StormTest.CaptureImageEx(None, 'Catalog', slotNo=True)[2]
         
         if not match[0][1]:
