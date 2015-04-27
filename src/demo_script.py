@@ -19,10 +19,9 @@ if __name__ == '__main__':
     result = catalogAvailability(galaxyTab3, serviceInfo)
     results.append(result)
     
-    playRandomVideo(galaxyTab3)
-    
-    result = videoMotion(galaxyTab3, serviceInfo)
-    results.append(result)
+    if playRandomVideo(galaxyTab3):
+        result = videoMotion(galaxyTab3, serviceInfo)
+        results.append(result)
     
     
     print results

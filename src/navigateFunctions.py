@@ -1,7 +1,6 @@
 
 import random
 import logging
-import stormtest.ClientAPI as StormTest
 
 
 log = logging.getLogger("userAction")
@@ -15,13 +14,13 @@ def goToCatalog(device, catalogName):
 
 
 def playRandomVideo(device):
-    videoName = _pickRandomVideo()
-    _findVideo(device, videoName)
-    pass
+    videoName = _pickRandomVideo(device)
+    return _findVideo(device, videoName)
 
 
-def _pickRandomVideo():
-    cinemaCatalog = ['limitless', 'divergent', 'maleficent', 'amazzonia', 'apocalypto', 'bears', 'bee movie', 'blood', 'butter', 'cellular'] 
+def _pickRandomVideo(device):
+    appCommands = device.getAppCommands()
+    cinemaCatalog = appCommands.getCinemaCatalog() 
     index = random.randrange(0, 10)
     
     return cinemaCatalog[index]
@@ -31,18 +30,5 @@ def _findVideo(device, videoName):
     appCommands = device.getAppCommands()
     
     if appCommands.openCatalogFind():
-        device.enterText(videoName)
-        device.tap(mappedText='Find')
-        StormTest.WaitSec(6)
-        match = StormTest.WaitColorMatch((233,235,233), (16,16,16), flatness=95, peakError=50, includedAreas=[404,633,8,7], timeToWait=60)
-        StormTest.CaptureImageEx(None, 'PlayVideo', slotNo=True)[2]
-        
-        if not match[0][1]:
-            comment = 'Match color failed on playing the video {0}'.format(match)
-            log.error(comment)
-            return False
-    
-        comment = 'Match color successful on playing the video {0}'.format(match)
-        log.info(comment)
-        return True
+        return appCommands.findSelectedVideo(videoName)
     return False

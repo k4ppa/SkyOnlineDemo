@@ -20,6 +20,12 @@ class AppCommands(DeviceCommands):
                     'Home':{'x':630,'y':55,'time':1},
                     #'':{'x':, 'y':, 'time':}
                     } 
+        self._cinemaCatalog = ['limitless', 'divergent', 
+                               'maleficent', 'amazzonia', 
+                               'apocalypto', 'bears', 
+                               'bee movie', 'blood', 
+                               'butter', 'cellular'
+                               ]
         pass
     
     
@@ -27,6 +33,10 @@ class AppCommands(DeviceCommands):
         allCommands = self._appCommands.copy()
         allCommands.update(self._commands)
         return allCommands
+    
+    
+    def getCinemaCatalog(self):
+        return self._cinemaCatalog
     
     
     def openMenu(self):
@@ -73,6 +83,23 @@ class AppCommands(DeviceCommands):
             return False
     
         comment = 'Match color successful on opening the keyboardcatalog {0}'.format(match)
+        log.info(comment)
+        return True
+    
+    
+    def findSelectedVideo(self, videoName):
+        self._device.enterText(videoName)
+        self._device.tap(mappedText='Find')
+        
+        match = StormTest.WaitColorMatch((233,235,233), (16,16,16), flatness=95, peakError=50, includedAreas=[404,633,8,7], timeToWait=60)
+        StormTest.CaptureImageEx(None, 'PlayVideo', slotNo=True)[2]
+        
+        if not match[0][1]:
+            comment = 'Match color failed on playing the video {0}'.format(match)
+            log.error(comment)
+            return False
+    
+        comment = 'Match color successful on playing the video {0}'.format(match)
         log.info(comment)
         return True
         
