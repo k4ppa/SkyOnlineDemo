@@ -1,7 +1,7 @@
 
 import random
 import logging
-
+import stormtest.ClientAPI as StormTest
 
 log = logging.getLogger("userAction")
 
@@ -13,11 +13,20 @@ def goToCatalog(device, catalogName):
     return result, comment, image
 
 
-def playRandomVideo(device):
+def playVideo(device, serviceInfo): 
+    if serviceInfo['name'] == 'Sky TG24':
+        return startSkyTG24(device)
+    
     videoName = _pickRandomVideo(device)
     if _findVideo(device, videoName):
         return _startVideo(device)
     return False
+
+
+def startSkyTG24(device):
+    # waitColor match
+    device.tap(mappedText='PLAYSkyTG24')
+    #waitColorMatch ?
 
 
 def _pickRandomVideo(device):

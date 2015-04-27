@@ -4,7 +4,7 @@ import stormtest.ClientAPI as StormTest
 from mobile_framework.android_device import AndroidDevice
 from scenario import catalogAvailability, videoMotion, videoPresent,\
     audioPresent
-from navigateFunctions import playRandomVideo, stopRandomVideo
+from navigateFunctions import stopRandomVideo, playVideo
 
 
 if __name__ == '__main__':
@@ -20,12 +20,12 @@ if __name__ == '__main__':
     result = catalogAvailability(galaxyTab3, serviceInfo)
     results.append(result)
     
-    if playRandomVideo(galaxyTab3):
+    if playVideo(galaxyTab3, serviceInfo):
+        result = audioPresent(galaxyTab3, serviceInfo)
+        results.append(result)
         result = videoMotion(galaxyTab3, serviceInfo)
         results.append(result)
         result = videoPresent(galaxyTab3, serviceInfo)
-        results.append(result)
-        result = audioPresent(galaxyTab3, serviceInfo)
         results.append(result)
     stopRandomVideo(galaxyTab3)
     

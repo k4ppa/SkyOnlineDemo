@@ -6,7 +6,7 @@ class TestEnvironment(object):
     
     params = {"service": {"displayName": "Android mobile service",
                                             "id": 21,
-                                            "name": "Cinema",
+                                            "name": "Sky TG24",
                                             "number": "",
                                             "tags": [],
                                             "type": "linear"
