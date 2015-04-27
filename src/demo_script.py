@@ -7,6 +7,19 @@ from scenario import catalogAvailability, videoMotion, videoPresent,\
 from navigateFunctions import playVideo, stopVideo
 
 
+
+def audioVideoScenarios(galaxyTab3, serviceInfo):
+    results= []
+    
+    result = audioPresent(galaxyTab3, serviceInfo)
+    results.append(result)
+    result = videoMotion(galaxyTab3, serviceInfo)
+    results.append(result)
+    result = videoPresent(galaxyTab3, serviceInfo)
+    results.append(result)
+    return results
+
+
 if __name__ == '__main__':
     results= []
       
@@ -21,12 +34,7 @@ if __name__ == '__main__':
     results.append(result)
     
     if playVideo(galaxyTab3, serviceInfo):
-        result = audioPresent(galaxyTab3, serviceInfo)
-        results.append(result)
-        result = videoMotion(galaxyTab3, serviceInfo)
-        results.append(result)
-        result = videoPresent(galaxyTab3, serviceInfo)
-        results.append(result)
+        results = audioVideoScenarios(galaxyTab3, serviceInfo)
     stopVideo(galaxyTab3)
     
     print results
