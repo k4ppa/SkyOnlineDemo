@@ -1,5 +1,6 @@
 .project
 .pydevproject
-MobileDevice.log
+MobileDevice.log.*
+mobileDevice.log
 *.pyc
 src/demo_script_*

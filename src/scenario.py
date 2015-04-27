@@ -77,7 +77,7 @@ def catalogAvailability(galaxyTab3, serviceInfo):
     
     _endTest('catalogBrowsing', serviceInfo, result, video, comment, image)
     StormTest.EndLogRegion('catalogBrowsing')
-    pass
+    return result
 
 
 def videoMotion(galaxyTab3, serviceInfo):

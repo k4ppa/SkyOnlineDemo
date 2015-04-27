@@ -42,7 +42,7 @@ class MobileDevice(object):
     
     def disconnect(self):
         StormTest.BeginLogRegion('Close Connection')
-        self._connectionLog.info("Closing connection with the server")
+        self._connectionLog.info("Closing connection with the server\n")
         logging.shutdown()
         isClosed = StormTest.ReleaseServerConnection()
         StormTest.EndLogRegion('Close Connection')

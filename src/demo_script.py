@@ -9,15 +9,15 @@ from navigateFunctions import playVideo, stopVideo
 
 
 def audioVideoScenarios(galaxyTab3, serviceInfo):
-    results= []
+    results = []
     
-    result = audioPresent(galaxyTab3, serviceInfo)
+    result1 = audioPresent(galaxyTab3, serviceInfo)
     results.append(result)
-    result = videoMotion(galaxyTab3, serviceInfo)
+    result2 = videoMotion(galaxyTab3, serviceInfo)
     results.append(result)
-    result = videoPresent(galaxyTab3, serviceInfo)
+    result3 = videoPresent(galaxyTab3, serviceInfo)
     results.append(result)
-    return results
+    return result1, result2, result3
 
 
 if __name__ == '__main__':
@@ -33,8 +33,11 @@ if __name__ == '__main__':
     result = catalogAvailability(galaxyTab3, serviceInfo)
     results.append(result)
     
-    if playVideo(galaxyTab3, serviceInfo):
-        results = audioVideoScenarios(galaxyTab3, serviceInfo)
+    if results[0] and playVideo(galaxyTab3, serviceInfo):
+        result1, result2, result3 = audioVideoScenarios(galaxyTab3, serviceInfo)
+        results.append(result1)
+        results.append(result2)
+        results.append(result3)
     stopVideo(galaxyTab3)
     
     print results
