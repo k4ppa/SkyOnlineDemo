@@ -1,0 +1,5 @@
+.project
+.pydevproject
+MobileDevice.log
+*.pyc
+src/demo_script_*
