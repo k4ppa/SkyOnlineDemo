@@ -1,5 +1,4 @@
 
-import random
 import stormtest.ClientAPI as StormTest
 
 from stormtest import WarningCenter
@@ -89,6 +88,28 @@ def videoMotion(galaxyTab3, serviceInfo):
     
     #_endTest('videoMotion', serviceInfo, result, video, comment, image)
     #StormTest.EndLogRegion('videoMotion')
+    pass
+
+
+def videoPresent(galaxyTab3, serviceInfo):
+    #StormTest.BeginLogRegion('videoPresent')
+    #video = _startTest('videoPresent')
+    
+    #result, comment, image = videoPresentTest(galaxyTab3)
+    
+    #_endTest('videoPresent', serviceInfo, result, video, comment, image)
+    #StormTest.EndLogRegion('videoPresent')
+    pass
+
+
+def audioPresent(galaxyTab3, serviceInfo):
+    #StormTest.BeginLogRegion('audioPresent')
+    #video = _startTest('audioPresent')
+    
+    #result, comment, image = audioPresentTest(galaxyTab3)
+    
+    #_endTest('audioPresent', serviceInfo, result, video, comment, image)
+    #StormTest.EndLogRegion('audioPresent')
     pass
     
     

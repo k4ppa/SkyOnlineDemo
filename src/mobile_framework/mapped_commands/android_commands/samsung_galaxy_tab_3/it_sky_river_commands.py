@@ -82,7 +82,7 @@ class AppCommands(DeviceCommands):
             log.error(comment)
             return False
     
-        comment = 'Match color successful on opening the keyboardcatalog {0}'.format(match)
+        comment = 'Match color successful on opening the keyboard catalog {0}'.format(match)
         log.info(comment)
         return True
     

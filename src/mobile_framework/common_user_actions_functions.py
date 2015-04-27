@@ -32,11 +32,11 @@ def __concatModulesName(appName, deviceCommandsModule):
     return deviceCommandsModule + ".{0}_commands".format(moduleName)
     
 
-def __importAppModule(deviceCommandsModule):
+def __importAppModule(appCommandsModule):
     try:
-        return importlib.import_module(deviceCommandsModule)
+        return importlib.import_module(appCommandsModule)
     except ImportError:
-        log.error("Fail to import app mapped commands: {0}".format(deviceCommandsModule))
+        log.error("Fail to import app mapped commands: {0}".format(appCommandsModule))
         raise
 
 
