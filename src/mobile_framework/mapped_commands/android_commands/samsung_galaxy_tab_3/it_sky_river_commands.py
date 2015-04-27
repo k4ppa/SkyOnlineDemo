@@ -18,12 +18,14 @@ class AppCommands(DeviceCommands):
                     'OpenMenu':{'x':30, 'y':50, 'time':0},
                     'CloseMenu':{'x':320,'y':50,'time':0},
                     'Home':{'x':630,'y':55,'time':1},
+                    'PLAY':{'x':270,'y':520,'time':0},
+                    'closeVideo':{'x':1265,'y':15,'time':0},
                     #'':{'x':, 'y':, 'time':}
                     } 
         self._cinemaCatalog = ['limitless', 'divergent', 
                                'maleficent', 'amazzonia', 
                                'apocalypto', 'bears', 
-                               'bee movie', 'blood', 
+                               'bee movie', 'blade runner', 
                                'butter', 'cellular'
                                ]
         pass

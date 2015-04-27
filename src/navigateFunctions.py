@@ -15,7 +15,9 @@ def goToCatalog(device, catalogName):
 
 def playRandomVideo(device):
     videoName = _pickRandomVideo(device)
-    return _findVideo(device, videoName)
+    if _findVideo(device, videoName):
+        return _startVideo(device)
+    return False
 
 
 def _pickRandomVideo(device):
@@ -32,3 +34,17 @@ def _findVideo(device, videoName):
     if appCommands.openCatalogFind():
         return appCommands.findSelectedVideo(videoName)
     return False
+
+
+def _startVideo(device):
+    return device.tap(mappedText='PLAY')
+    # waitColomatch?
+    
+    
+def stopRandomVideo(device):
+    device.tap(mappedText='closeVideo')
+    device.tap(mappedText='closeVideo')
+    # waitColormatch
+
+
+
