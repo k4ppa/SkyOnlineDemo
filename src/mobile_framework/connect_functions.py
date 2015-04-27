@@ -91,7 +91,13 @@ def __isConnectionOk(isServerConnected, isSlotReserved):
     if isServerConnected and isSlotReserved:
         isConnectionOk = __OCRCheckRemainingChars()
         
-    log.info("Connection established and slot reserved") if isConnectionOk else log.info("Connection failed") 
+    log.info("Connection established and slot reserved") if isConnectionOk else log.info("Connection failed")
+    if isConnectionOk:
+        log.info("Connection established and slot reserved")
+        StormTest.EndLogRegion('Open Connection', StormTest.LogRegionStyle.Pass, comment='Connection with the server established')
+    else:
+        log.error("Connection failed")
+         
     return isConnectionOk    
     
 

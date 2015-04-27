@@ -42,21 +42,39 @@ class AppCommands(DeviceCommands):
     
     
     def openCatalog(self, catalogName):
-        self._device.tap(text=catalogName)
-        match = StormTest.WaitColorNoMatch((41,100,168), tolerances=(16,16,16), flatness=10, peakError=95, includedAreas=[495,280,663,445], timeToWait=60)
-        image = StormTest.CaptureImageEx(None, None, slotNo=True)[2]
+        self._device.tap(text=catalogName)     
+        
+        StormTest.WaitSec(5)
+        
+        match = StormTest.WaitColorNoMatch((41,116,168), tolerances=(16,16,16), flatness=10, peakError=85, includedAreas=[495,280,663,445], timeToWait=60)
+        image = StormTest.CaptureImageEx(None, 'Cinema', slotNo=True)[2]
         
         if not match[0][1]:
-            comment = 'No match color failed on opening the catalog {0} {1}'.format(catalogName, match)
+            comment = 'No match color failed on opening {0} catalog {1}'.format(catalogName, match)
             log.error(comment)
             return False, comment, image
     
-        comment = 'No match color successful on opening the catalog {0} {1}'.format(catalogName, match)
+        comment = 'No match color successful on opening {0} catalog {1}'.format(catalogName, match)
         log.info(comment)
         return True, comment, image
         
         
+    def openCatalogFind(self):
+        self._device.tap(text="Cerca nel catalogo. Double tap to edit.")
         
+        StormTest.WaitSec(5)
+        
+        match = StormTest.WaitColorMatch((197,199,200), tolerances=(16,16,16), flatness=80, peakError=85, includedAreas=[1200,1000,10,10], timeToWait=60)
+        StormTest.CaptureImageEx(None, 'Keyboard', slotNo=True)[2]
+        
+        if not match[0][1]:
+            comment = 'Match color failed on opening the keyboard {0}'.format(match)
+            log.error(comment)
+            return False
+    
+        comment = 'Match color successful on opening the keyboardcatalog {0}'.format(match)
+        log.info(comment)
+        return True
         
         
         

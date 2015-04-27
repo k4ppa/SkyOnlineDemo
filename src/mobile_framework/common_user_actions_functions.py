@@ -41,7 +41,7 @@ def __importAppModule(deviceCommandsModule):
 
 
 def _tapWithMappedText(commands, mappedText):
-    log.info("Tap on mapped text {0}".format(commands[mappedText]))
+    log.info("Tap on mapped text {0} {1}".format(mappedText, commands[mappedText]))
     
     command = commands[mappedText]
     return StormTest.PressButton('TAP:{0}:{1}:{2}'.format(command['x'], command['y'], command['time']))

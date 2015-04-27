@@ -23,7 +23,6 @@ class MobileDevice(object):
         #path = path[:path.rfind("mobile_framework")]
         #print path
         path = path.replace('\\', '/')
-        print path
         logging.config.fileConfig(path + '/mobile_framework/log.conf')
         
         self._connectionLog = logging.getLogger('connection')
@@ -42,9 +41,12 @@ class MobileDevice(object):
     
     
     def disconnect(self):
+        StormTest.BeginLogRegion('Close Connection')
         self._connectionLog.info("Closing connection with the server")
         logging.shutdown()
-        return StormTest.ReleaseServerConnection()
+        isClosed = StormTest.ReleaseServerConnection()
+        StormTest.EndLogRegion('Close Connection')
+        return isClosed
     
     
     def tap(self, appCommands, mappedText=None):       
