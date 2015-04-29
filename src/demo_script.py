@@ -4,19 +4,15 @@ import stormtest.ClientAPI as StormTest
 from mobile_framework.android_device import AndroidDevice
 from scenario import catalogAvailability, videoMotion, videoPresent,\
     audioPresent
-from navigateFunctions import playVideo, stopVideo
+from navigateFunctions import playVideo, stopVideo, closeApp
 
 
 
 def audioVideoScenarios(galaxyTab3, serviceInfo):
-    results = []
-    
+  
     result1 = audioPresent(galaxyTab3, serviceInfo)
-    results.append(result)
     result2 = videoMotion(galaxyTab3, serviceInfo)
-    results.append(result)
     result3 = videoPresent(galaxyTab3, serviceInfo)
-    results.append(result)
     return result1, result2, result3
 
 
@@ -34,11 +30,15 @@ if __name__ == '__main__':
     results.append(result)
     
     if results[0] and playVideo(galaxyTab3, serviceInfo):
+        StormTest.WaitSec(15)
         result1, result2, result3 = audioVideoScenarios(galaxyTab3, serviceInfo)
         results.append(result1)
         results.append(result2)
         results.append(result3)
     stopVideo(galaxyTab3)
+    
+    closeApp(galaxyTab3)
+    
     
     print results
     if False in results:
