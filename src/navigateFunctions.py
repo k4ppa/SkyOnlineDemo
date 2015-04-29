@@ -17,6 +17,7 @@ def goToCatalog(device, catalogName):
 
 
 def playVideo(device, serviceInfo): 
+    StormTest.BeginLogRegion('Play Video')
     if serviceInfo['name'] == 'Sky TG24':
         return _playSkyTG24(device)
     
@@ -27,9 +28,7 @@ def playVideo(device, serviceInfo):
 
 
 def _playSkyTG24(device):
-    # waitColor match
     return device.tap(mappedText='PLAYSkyTG24')
-    #waitColorMatch ?
 
 
 def _pickRandomVideo(device):
@@ -50,12 +49,12 @@ def _findVideo(device, videoName):
 
 def _startVideo(device):
     return device.tap(mappedText='PLAY')
-    # waitColomatch?
     
     
 def stopVideo(device):
     device.tap(mappedText='closeVideo')
     device.tap(mappedText='closeVideo')
+    device.tap(text='No')
     
     match = StormTest.WaitColorMatch(color=(50,114,167), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[430,80,10,10], timeToWait=60)
     image = StormTest.CaptureImageEx(None, 'Home', slotNo=True)[2]
@@ -67,9 +66,9 @@ def stopVideo(device):
     
     comment = 'Match color successful on closing the video'
     log.info(comment)
+    StormTest.EndLogRegion('Stop Video')
     
     return True, comment, image
-
 
 
 def closeApp(device):

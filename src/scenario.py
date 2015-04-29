@@ -1,7 +1,6 @@
 
 import stormtest.ClientAPI as StormTest
 
-from stormtest import WarningCenter
 from navigateFunctions import goToCatalog
 from test import _startTest, _endTest, _videoMotionTest, _videoPresentTest,\
     _audioPresentTest

@@ -23,11 +23,11 @@ class AppCommands(DeviceCommands):
                     'PLAYSkyTG24':{'x':170,'y':270,'time':0},
                     #'':{'x':, 'y':, 'time':}
                     } 
-        self._cinemaCatalog = ['limitless', 'divergent', 
-                               'maleficent', 'amazzonia', 
-                               'apocalypto', 'bears', 
-                               'bee movie', 'blade runner', 
-                               'butter', 'cellular'
+        self._cinemaCatalog = ['the wire ep.5', '1992 ep.2', 
+                               'banshee ep.1', 'castle ep.14', 
+                               'empire ep.8', 'freak show ep.10', 
+                               'borgia ep.1', 'trono di spade ep.1', 
+                               'big love ep.3', '1992 ep.9'
                                ]
         pass
     
