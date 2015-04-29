@@ -73,6 +73,7 @@ def stopVideo(device):
 
 
 def closeApp(device):
+    StormTest.BeginLogRegion('Close App')
     StormTest.WaitSec(2)
     device.tap(mappedText='Home')
     
@@ -88,6 +89,7 @@ def closeApp(device):
     log.info(comment)
     
     device.stop()
+    StormTest.EndLogRegion('Close App')
     return True, comment, image
 
 
