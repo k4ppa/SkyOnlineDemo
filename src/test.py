@@ -2,7 +2,7 @@
 import stormtest.ClientAPI as StormTest
 from stormtest import WarningCenter
 
-
+'''
 def _audioPresentTest():
     """
     Checks if audio is present
@@ -22,13 +22,24 @@ def _audioPresentTest():
         StormTest.WriteDebugLine('Result of Audio Detection is ' + str(result) + '. Actual audio level = ' + str(actualAudio))
         audioThreshold = retSDO.Regions[0].AudioThreshold
         comment = 'Audio Level = %0.3f, Audio Threshold = %0.3f' % (actualAudio, audioThreshold)
+        print comment
         SDO.Close()
         return [result, comment]
     except:
         print 'Could not load AudioDetect.stscreen - exiting test'
         SDO.Close()
         return [False, 'Could not load AudioDetect.stscreen - exiting test']
- 
+
+'''
+def _audioPresentTest():
+    #print StormTest.GetAudioLevel(1)
+    isPresent = StormTest.WaitAudioPresence(-95, 60)[0][1]
+    if isPresent:
+        return isPresent, 'Audio is present'
+    else:
+        return isPresent, 'Audio not present'
+
+
 def _videoPresentTest():
     """
     Checks if video is present, by comparing screen colour against a black colour
@@ -117,7 +128,7 @@ def _startTest(eventName):
     Arguments:
     - eventName - the name of the Warning Center event generated for this specific test
     """
-   
+    
     StormTest.BeginTestStep(eventName)
     video = StormTest.StartVideoLog(prefix=eventName)[0][2]
     return video

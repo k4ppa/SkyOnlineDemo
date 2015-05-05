@@ -2,6 +2,7 @@
 import random
 import logging
 import stormtest.ClientAPI as StormTest
+from color_match import colorMatch
 
 log = logging.getLogger("userAction")
 
@@ -19,12 +20,16 @@ def goToCatalog(device, catalogName):
 def playVideo(device, serviceInfo): 
     StormTest.BeginLogRegion('Play Video')
     if serviceInfo['name'] == 'Sky TG24':
-        return _playSkyTG24(device)
-    
+        isPlayed = _playSkyTG24(device)
+        StormTest.EndLogRegion('Play Video')
+        return isPlayed
+        
     videoName = _pickRandomVideo(device)
     if _findVideo(device, videoName):
-        return _startVideo(device)
-    return False
+        isPlayed = _startVideo(device)
+        StormTest.EndLogRegion('Play Video')
+    
+    return isPlayed
 
 
 def _playSkyTG24(device):
@@ -52,10 +57,11 @@ def _startVideo(device):
     
     
 def stopVideo(device):
+    StormTest.BeginLogRegion('Stop Video')
     device.tap(mappedText='closeVideo')
     device.tap(mappedText='closeVideo')
     device.tap(text='No')
-    
+    '''
     match = StormTest.WaitColorMatch(color=(50,114,167), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[430,80,10,10], timeToWait=60)
     image = StormTest.CaptureImageEx(None, 'Home', slotNo=True)[2]
     
@@ -69,13 +75,17 @@ def stopVideo(device):
     StormTest.EndLogRegion('Stop Video')
     
     return True, comment, image
-
+    '''
+    result = colorMatch(color=(50,114,167), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[430,80,10,10], timeToWait=60, imageName='StopVideo', comment='Match color on closing the video')
+    StormTest.EndLogRegion('Stop Video')
+    return result
+    
 
 def closeApp(device):
     StormTest.BeginLogRegion('Close App')
     StormTest.WaitSec(2)
     device.tap(mappedText='Home')
-    
+    '''
     match = StormTest.WaitColorMatch(color=(233,235,233), tolerances=(16,16,16), flatness=95, peakError=15, includedAreas=[940,990,10,10], timeToWait=60)
     image = StormTest.CaptureImageEx(None, 'Home', slotNo=True)[2]
     
@@ -87,8 +97,10 @@ def closeApp(device):
     comment = 'Match color successful on returning to Home'
     log.info(comment)
     
+    return True, comment, image
+    '''
+    result = colorMatch(color=(233,235,233), tolerances=(16,16,16), flatness=95, peakError=15, includedAreas=[940,990,10,10], timeToWait=60, imageName='CloseApp', comment='Match color on returning to home')
     device.stop()
     StormTest.EndLogRegion('Close App')
-    return True, comment, image
-
+    return result
 

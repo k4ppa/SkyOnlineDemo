@@ -8,9 +8,7 @@ log = logging.getLogger('connection')
 
 
 def _getTestRunConfiguration():
-    StormTest.BeginLogRegion('Open Connection')
     params = WarningCenter.GetTestRun()
-    
     if params == None:     
         return __getDeveloperModeParams() 
     return params    

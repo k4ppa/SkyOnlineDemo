@@ -5,11 +5,12 @@ from mobile_framework.android_device import AndroidDevice
 from scenario import catalogAvailability, videoMotion, videoPresent,\
     audioPresent
 from navigateFunctions import playVideo, stopVideo, closeApp
+from recharge_device import goToSleep
 
 
 
 def audioVideoScenarios(galaxyTab3, serviceInfo):
-  
+    #result1 = True
     result1 = audioPresent(galaxyTab3, serviceInfo)
     result2 = videoMotion(galaxyTab3, serviceInfo)
     result3 = videoPresent(galaxyTab3, serviceInfo)
@@ -18,6 +19,7 @@ def audioVideoScenarios(galaxyTab3, serviceInfo):
 
 if __name__ == '__main__':
     results= []
+    
       
     galaxyTab3 = AndroidDevice("samsung_galaxy_tab_3")
     galaxyTab3.connect('Warning center')
@@ -35,10 +37,10 @@ if __name__ == '__main__':
         results.append(result1)
         results.append(result2)
         results.append(result3)
-    stopVideo(galaxyTab3)
+        stopVideo(galaxyTab3)
     
-    closeApp(galaxyTab3)
-    
+    goToSleep()
+    closeApp(galaxyTab3)    
     
     print results
     if False in results:

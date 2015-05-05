@@ -31,6 +31,7 @@ class MobileDevice(object):
 
     
     def connect(self, description=''):
+        StormTest.BeginLogRegion('Open Connection')
         self._connectionLog.info(description)
         self._connectionLog.info("Started connection with the server")    
         self._serviceInfo = _getTestRunConfiguration()['service']
