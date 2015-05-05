@@ -33,7 +33,7 @@ def _audioPresentTest():
 '''
 def _audioPresentTest():
     #print StormTest.GetAudioLevel(1)
-    isPresent = StormTest.WaitAudioPresence(-95, 60)[0][1]
+    isPresent = StormTest.WaitAudioPresence(-100, 60)[0][1]
     if isPresent:
         return isPresent, 'Audio is present'
     else:

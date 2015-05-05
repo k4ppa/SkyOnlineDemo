@@ -37,7 +37,6 @@ class AndroidDevice(MobileDevice):
         self._userActionLog.info("Stopped application %s" % self._appName)
         if not StormTest.PressButton("STOP-ANDROID"):
             self._userActionLog.error("Stop application failed. Disconnection will continue")
-        #return self.disconnect()
         pass
 
     
@@ -63,6 +62,13 @@ class AndroidDevice(MobileDevice):
         return self._appCommands
     
     
+    def recharge(self, rechargeTime):
+        time = str(rechargeTime)
+        StormTest.PressButton("LOCK:{0}".format(time))
+        StormTest.WaitSec(rechargeTime + 20)
+        StormTest.PressButton('SWIPE:1000:400:500:400')
+        StormTest.WaitSec(5)
+        pass
 
 
 

@@ -18,6 +18,14 @@ def catalogAvailability(galaxyTab3, serviceInfo):
     return result
 
 
+def audioVideoScenarios(galaxyTab3, serviceInfo):
+    #result1 = True
+    result1 = audioPresent(galaxyTab3, serviceInfo)
+    result2 = videoMotion(galaxyTab3, serviceInfo)
+    result3 = videoPresent(galaxyTab3, serviceInfo)
+    return result1, result2, result3
+
+
 def videoMotion(galaxyTab3, serviceInfo):
     StormTest.BeginLogRegion('videoMotion')
     video = _startTest('videoMotion')
