@@ -67,7 +67,7 @@ class AndroidDevice(MobileDevice):
         StormTest.PressButton("LOCK:{0}".format(time))
         StormTest.WaitSec(rechargeTime + 20)
         StormTest.PressButton('SWIPE:1000:400:500:400')
-        StormTest.WaitSec(5)
+        StormTest.WaitSec(1)
         pass
 
 

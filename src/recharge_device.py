@@ -2,23 +2,29 @@
 import datetime
 from datetime import timedelta
 
-import stormtest.ClientAPI as StormTest
-
 
 def rechargeDevice(device):
     startingDate = _readTestStartingDate()
-    if (datetime.datetime.today() - startingDate > timedelta(seconds=300)):
+    if (_twoDaysArePassed(startingDate)):
         _goToSleep(device, startingDate) 
         _writeNewTestStartingDate()
         
 
 def _readTestStartingDate():
-    with open("testStartingDate.txt","r") as dateFile:
-        startingDate = dateFile.readlines()
-        dateFile.close()
-        
+    startingDate = __readDate()
     splittedDate = __splitDate(startingDate)
     return datetime.datetime(int(splittedDate[0]), int(splittedDate[1]), int(splittedDate[2]), hour=int(splittedDate[3]), minute=int(splittedDate[4]))
+
+
+def __readDate():
+    with open("testStartingDate.txt","r") as dateFile:
+        startingDate = dateFile.readlines()
+    dateFile.close()
+    return startingDate
+
+
+def _twoDaysArePassed(startingDate):
+    return datetime.datetime.today() - startingDate > timedelta(seconds=300)
 
 
 def __splitDate(startingDate):
@@ -34,7 +40,7 @@ def __splitDate(startingDate):
 
 def _goToSleep(device, startDate):
     device.recharge(10) # 21600
-    StormTest.WaitSec(3)
+    #StormTest.WaitSec(3)
     pass
     
 
