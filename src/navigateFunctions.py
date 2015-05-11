@@ -2,12 +2,15 @@
 import random
 import logging
 import stormtest.ClientAPI as StormTest
-from color_match import colorMatch
+from color_match import colorMatch, colorNoMatch
 
 log = logging.getLogger("userAction")
 
 def goToCatalog(device, catalogName):
     appCommands = device.getAppCommands()
+    if _connectionError():
+        log.error("App connection error: test aborted")
+        return False, "App connection error: test aborted", None
     appCommands.openMenu() 
     
     if catalogName == "Sky TG24":
@@ -15,6 +18,11 @@ def goToCatalog(device, catalogName):
     else:
         return appCommands.openCatalog(catalogName)
     pass
+
+
+def _connectionError():
+    result = colorMatch(color=(230,232,232), tolerances=(16,16,16), flatness=90, peakError=20, includedAreas=(810,470,10,10), timeToWait=60, imageName='ConnectionError', comment='Connection error')
+    return result [0]
 
 
 def playVideo(device, serviceInfo): 
@@ -25,21 +33,26 @@ def playVideo(device, serviceInfo):
         return isPlayed
         
     videoName = _pickRandomVideo(device)
+    isPlayed = False
     if _findVideo(device, videoName):
         isPlayed = _startVideo(device)
-        StormTest.EndLogRegion('Play Video')
     
+    StormTest.EndLogRegion('Play Video')
     return isPlayed
 
 
 def _playSkyTG24(device):
-    return device.tap(mappedText='PLAYSkyTG24')
+    device.tap(mappedText='PLAYSkyTG24')
+    #StormTest.WaitSec(3)
+    result = colorNoMatch(color=(41,116,168), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[700,830,10,10], timeToWait=60, imageName='VideoPlayed', comment='Play video')
+    print result
+    return result[0]
 
 
 def _pickRandomVideo(device):
     appCommands = device.getAppCommands()
     cinemaCatalog = appCommands.getCinemaCatalog() 
-    index = random.randrange(0, 10)
+    index = random.randrange(0, len(cinemaCatalog)-1)
     
     return cinemaCatalog[index]
 
@@ -61,21 +74,7 @@ def stopVideo(device):
     device.tap(mappedText='closeVideo')
     device.tap(mappedText='closeVideo')
     device.tap(text='No')
-    '''
-    match = StormTest.WaitColorMatch(color=(50,114,167), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[430,80,10,10], timeToWait=60)
-    image = StormTest.CaptureImageEx(None, 'Home', slotNo=True)[2]
     
-    if not match[0][1]:
-        comment = 'Match color failed on closing the video'
-        log.error(comment)
-        return False, comment, image
-    
-    comment = 'Match color successful on closing the video'
-    log.info(comment)
-    StormTest.EndLogRegion('Stop Video')
-    
-    return True, comment, image
-    '''
     result = colorMatch(color=(50,114,167), tolerances=(16,16,16), flatness=90, peakError=80, includedAreas=[430,80,10,10], timeToWait=60, imageName='StopVideo', comment='Match color on closing the video')
     StormTest.EndLogRegion('Stop Video')
     return result
@@ -85,20 +84,7 @@ def closeApp(device):
     StormTest.BeginLogRegion('Close App')
     StormTest.WaitSec(2)
     device.tap(mappedText='Home')
-    '''
-    match = StormTest.WaitColorMatch(color=(233,235,233), tolerances=(16,16,16), flatness=95, peakError=15, includedAreas=[940,990,10,10], timeToWait=60)
-    image = StormTest.CaptureImageEx(None, 'Home', slotNo=True)[2]
     
-    if not match[0][1]:
-        comment = 'Match color failed on returning to Home'
-        log.error(comment)
-        return False, comment, image
-    
-    comment = 'Match color successful on returning to Home'
-    log.info(comment)
-    
-    return True, comment, image
-    '''
     result = colorMatch(color=(233,235,233), tolerances=(16,16,16), flatness=95, peakError=15, includedAreas=[940,990,10,10], timeToWait=60, imageName='CloseApp', comment='Match color on returning to home')
     device.stop()
     StormTest.EndLogRegion('Close App')

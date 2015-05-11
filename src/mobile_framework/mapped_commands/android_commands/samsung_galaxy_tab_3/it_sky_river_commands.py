@@ -23,11 +23,27 @@ class AppCommands(DeviceCommands):
                     'PLAYSkyTG24':{'x':170,'y':270,'time':0},
                     #'':{'x':, 'y':, 'time':}
                     } 
-        self._cinemaCatalog = ['the wire ep.5', '1992 ep.2', 
-                               'banshee ep.1', 'castle ep.14', 
-                               'empire ep.8', 'freak show ep.10', 
-                               'borgia ep.1', 'trono di spade ep.1', 
-                               'big love ep.3', '1992 ep.9'
+        self._cinemaCatalog = ['the wire ep.1', 'the wire ep.2',
+                               'the wire ep.3', 'the wire ep.4',
+                               'the wire ep.5', 'the wire ep.6',
+                               'the wire ep.7', 'the wire ep.8',
+                               'the wire ep.9', 'the wire ep.10',
+                               'the wire ep.11', 'the wire ep.12',
+                               'the wire ep.13', 
+                               '1992 ep.1', '1992 ep.2',
+                               '1992 ep.3', '1992 ep.4',
+                               '1992 ep.5', '1992 ep.6',
+                               '1992 ep.7', '1992 ep.8',
+                               '1992 ep.9', '1992 ep.10',
+                               'big love ep.1', 'big love ep.2'
+                               'big love ep.3',
+                               'borgia ep.1', 'borgia ep.2',
+                               'borgia ep.3', 'borgia ep.4',
+                               'borgia ep.5', 'borgia ep.6',
+                               'borgia ep.7', 'borgia ep.8',
+                               'borgia ep.9', 'borgia ep.10',
+                               'borgia ep.11', 'borgia ep.12',
+                               'borgia ep.13', 'borgia ep.14',
                                ]
         pass
     

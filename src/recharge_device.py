@@ -24,7 +24,7 @@ def __readDate():
 
 
 def _twoDaysArePassed(startingDate):
-    return datetime.datetime.today() - startingDate > timedelta(seconds=300)
+    return datetime.datetime.today() - startingDate > timedelta(seconds=86400)
 
 
 def __splitDate(startingDate):
@@ -39,7 +39,8 @@ def __splitDate(startingDate):
 
 
 def _goToSleep(device, startDate):
-    device.recharge(10) # 21600
+    device.recharge(21600) # 21600
+    device.tap(text='Continua')
     #StormTest.WaitSec(3)
     pass
     

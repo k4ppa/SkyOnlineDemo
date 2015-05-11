@@ -33,11 +33,25 @@ def _audioPresentTest():
 '''
 def _audioPresentTest():
     #print StormTest.GetAudioLevel(1)
-    isPresent = StormTest.WaitAudioPresence(-100, 60)[0][1]
+    SDO = StormTest.ScreenDefinition()
+    try:
+        SDO.Load('AudioDetect.stscreen')
+        retSDO = StormTest.WaitScreenDefMatch(SDO)[0][1]
+        actualAudio = retSDO.Regions[0].ActualAudio
+        audioThreshold = retSDO.Regions[0].AudioThreshold
+        isPresent = StormTest.WaitAudioPresence(-110, 60)[0][1]
+        StormTest.WriteDebugLine('Result of Audio Detection is ' + str(isPresent) + '. Actual audio level = ' + str(actualAudio))
+        comment = 'Audio Level = %0.3f, Audio Threshold = %0.3f' % (actualAudio, audioThreshold)
+        print comment
+        SDO.Close()
+    except:
+        print 'Could not load AudioDetect.stscreen - exiting test'
+        SDO.Close()
+        
     if isPresent:
-        return isPresent, 'Audio is present'
+        return isPresent, 'Audio is present' + comment
     else:
-        return isPresent, 'Audio not present'
+        return isPresent, 'Audio not present' + comment
 
 
 def _videoPresentTest():
