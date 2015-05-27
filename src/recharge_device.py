@@ -39,7 +39,7 @@ def __splitDate(startingDate):
 
 
 def _goToSleep(device, startDate):
-    device.recharge(40) # 14400
+    device.recharge(14400) # 14400
     device.tap(text='Continua')
     #StormTest.WaitSec(3)
     pass
