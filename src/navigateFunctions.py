@@ -9,9 +9,6 @@ log = logging.getLogger("userAction")
 
 def goToCatalog(device, catalogName):
     appCommands = device.getAppCommands()
-    if _connectionError():
-        log.error("App connection error: test aborted")
-        return False, "App connection error: test aborted", None
     if appCommands.openMenu():
         _checkLogin(device) 
         
@@ -31,8 +28,12 @@ def goToCatalog(device, catalogName):
     pass
 
 
-def _connectionError():
-    result = colorMatch(color=(230,232,232), tolerances=(16,16,16), flatness=90, peakError=20, includedAreas=(810,470,10,10), timeToWait=30, imageName='ConnectionError', comment='Connection error')
+def _connectionError(device):
+    result = colorMatch(color=(61,180,161), tolerances=(10,10,10), flatness=95, peakError=20, includedAreas=(870,720,10,10), timeToWait=40, imageName='ConnectionError', comment='Connection error')
+    print 'Connection error' + str(result[0])
+    if result[0]:
+        device.tap(text="OK")
+        #PressButton("TAP:870:720")
     return result[0]
 
 

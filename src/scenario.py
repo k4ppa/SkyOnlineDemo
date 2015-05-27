@@ -1,13 +1,19 @@
 
 import stormtest.ClientAPI as StormTest
+import logging
 
 from navigateFunctions import goToCatalog
 from test import _startTest, _endTest, _videoMotionTest, _videoPresentTest,\
     _audioPresentTest
-from check_crash import checkCrash
+from navigateFunctions import _connectionError
 
+log = logging.getLogger("userAction")
 
 def catalogAvailability(galaxyTab3, serviceInfo):
+    if _connectionError(galaxyTab3):
+        log.error("App connection error: test aborted")
+        return False
+    
     StormTest.BeginLogRegion('catalogBrowsing')
     video = _startTest('catalogBrowsing')
     

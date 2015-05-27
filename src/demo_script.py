@@ -14,7 +14,7 @@ if __name__ == '__main__':
     galaxyTab3 = AndroidDevice("samsung_galaxy_tab_3")
     galaxyTab3.connect('Warning center')
     galaxyTab3.start('it.sky.river')
-    StormTest.WaitSec(6)
+    StormTest.WaitSec(10)
         
     serviceInfo = galaxyTab3.getServiceInfo()
         
@@ -29,19 +29,16 @@ if __name__ == '__main__':
         results.append(result3)
         stopVideo(galaxyTab3)
     
-    if checkCrash(galaxyTab3):
-        retVal = StormTest.TM.FAIL
-    else:
-        rechargeDevice(galaxyTab3)
-        closeApp(galaxyTab3)    
+    rechargeDevice(galaxyTab3)
+    closeApp(galaxyTab3)    
         
-        print results
-        if False not in results and len(results) == 4:
-            retVal = StormTest.TM.PASS
-        else:
-            retVal = StormTest.TM.FAIL
-    
+    print results
+    if False not in results and len(results) == 4:
+        retVal = StormTest.TM.PASS
+    else:
+        retVal = StormTest.TM.FAIL
     galaxyTab3.disconnect()
+        
     StormTest.ReturnTestResult(retVal, False)
     pass
 
