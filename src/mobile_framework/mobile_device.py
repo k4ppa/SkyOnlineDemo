@@ -89,6 +89,3 @@ class MobileDevice(object):
     def getServiceInfo(self):
         return self._serviceInfo
     
-    
-    def getAssistanceMenu(self):
-        return self._assistanceMenu

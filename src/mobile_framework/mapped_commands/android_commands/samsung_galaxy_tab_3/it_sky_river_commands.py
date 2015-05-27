@@ -35,7 +35,7 @@ class AppCommands(DeviceCommands):
                                '1992 ep.5', '1992 ep.6',
                                '1992 ep.7', '1992 ep.8',
                                '1992 ep.9', '1992 ep.10',
-                               'big love ep.1', 'big love ep.2'
+                               'big love ep.1', 'big love ep.2',
                                'big love ep.3',
                                'borgia ep.1', 'borgia ep.2',
                                'borgia ep.3', 'borgia ep.4',
@@ -44,6 +44,37 @@ class AppCommands(DeviceCommands):
                                'borgia ep.9', 'borgia ep.10',
                                'borgia ep.11', 'borgia ep.12',
                                'borgia ep.13', 'borgia ep.14',
+                               'the royals ep.1', 'the royals ep.2',
+                               'the royals ep.3', 'the royals ep.4',
+                               'the royals ep.5', 'the royals ep.6',
+                               'the royals ep.7', 'the royals ep.8',
+                               'the royals ep.9', 'the royals ep.10',
+                               'the fall ep.1', 'the fall ep.2',
+                               'the fall ep.3',
+                               'banshee ep.1', 'banshee ep.2',
+                               'banshee ep.3', 'banshee ep.4',
+                               'banshee ep.5',
+                               'the knick ep.2', 'the knick ep.3',
+                               'the knick ep.4', 'the knick ep.5',
+                               'the knick ep.6', 'the knick ep.7',
+                               'the knick ep.8', 'the knick ep.9',
+                               'the knick ep.10',
+                               'band of brothers ep.1', 'band of brothers ep.2',
+                               'band of brothers ep.3', 'band of brothers ep.4',
+                               'band of brothers ep.5', 'band of brothers ep.6', 
+                               'band of brothers ep.7', 'band of brothers ep.8', 
+                               'band of brothers ep.9', 'band of brothers ep.10',
+                               'the listener ep.1', 'the listener ep.2', 
+                               'the listener ep.3', 'the listener ep.4', 
+                               'the listener ep.5', 'the listener ep.6', 
+                               'the listener ep.7', 'the listener ep.8', 
+                               'the listener ep.9', 'the listener ep.10', 
+                               'the listener ep.11', 'the listener ep.12',
+                               'the walking dead ep.1', 'the walking dead ep.2', 
+                               'the walking dead ep.3', 'the walking dead ep.4', 
+                               'the walking dead ep.5', 'the walking dead ep.6', 
+                               'the walking dead ep.7', 'the walking dead ep.8', 
+                               'the walking dead ep.9', 'the walking dead ep.10'     
                                ]
         pass
     
@@ -91,17 +122,34 @@ class AppCommands(DeviceCommands):
          
         StormTest.WaitSec(5)
         
-        match = StormTest.WaitColorNoMatch(color=(41,116,168), tolerances=(16,16,16), flatness=10, peakError=85, includedAreas=[495,280,663,445], timeToWait=60)
+        match1 = StormTest.WaitColorNoMatch(color=(41,116,168), tolerances=(16,16,16), flatness=10, peakError=85, includedAreas=[495,280,663,445], timeToWait=60)
         image = StormTest.CaptureImageEx(None, 'Catalog', slotNo=True)[2]
         
-        if not match[0][1]:
-            comment = 'No match color failed on opening {0} catalog {1}'.format(catalogName, match)
+        if not match1[0][1]:
+            comment = 'No match color of the poster failed on opening {0} catalog {1}'.format(catalogName, match1)
             log.error(comment)
             return False, comment, image
     
-        comment = 'No match color successful on opening {0} catalog {1}'.format(catalogName, match)
+        comment = 'No match color of the poster successful on opening {0} catalog {1}'.format(catalogName, match1)
         log.info(comment)
-        return True, comment, image
+        
+        
+        # match color sulla barra del menu blu
+        match2 = StormTest.WaitColorMatch(color=(15,15,75), tolerances=(16,16,16), flatness=95, peakError=20, includedAreas=[1770,140,10,10], timeToWait=60)
+        image = StormTest.CaptureImageEx(None, 'Catalog2', slotNo=True)[2]
+        
+        if not match2[0][1]:
+            comment = 'Match color of the dark blue menu failed on opening {0} catalog {1}'.format(catalogName, match2)
+            log.error(comment)
+            return False, comment, image
+    
+        comment = 'Match color of the dark blue menu successful on opening {0} catalog {1}'.format(catalogName, match2)
+        log.info(comment)
+        
+        if match1 and match2:
+            return True, comment, image
+        else:
+            return False, comment, image
         
         
     def openCatalogFind(self):

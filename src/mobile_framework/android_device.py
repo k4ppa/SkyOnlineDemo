@@ -53,9 +53,9 @@ class AndroidDevice(MobileDevice):
         return super(AndroidDevice, self).tap(self._appCommands, mappedText)
     
     
-    def swipe(self, coordinates=[0, 0, 0, 0, 0]):
-        log.info("Swipe from ({0}, {1}) to ({2}, {3}) with time {4}".format(coordinates[0], coordinates[1], coordinates[2], coordinates[3], coordinates[4]))
-        return StormTest.PressButton("SWIPE:{0}:{1}:{2}:{3}:{4}".format(coordinates[0], coordinates[1], coordinates[2], coordinates[3], coordinates[4]))
+    def swipe(self, coordinates=[0, 0, 0, 0], time=0):
+        log.info("Swipe from ({0}, {1}) to ({2}, {3}) with time {4}".format(coordinates[0], coordinates[1], coordinates[2], coordinates[3], time))
+        return StormTest.PressButton("SWIPE:{0}:{1}:{2}:{3}:{4}".format(coordinates[0], coordinates[1], coordinates[2], coordinates[3], time))
         
     
     def getAppCommands(self):
@@ -66,7 +66,8 @@ class AndroidDevice(MobileDevice):
         time = str(rechargeTime)
         StormTest.PressButton("LOCK:{0}".format(time))
         StormTest.WaitSec(rechargeTime + 20)
-        StormTest.PressButton('SWIPE:1000:400:500:400')
+        #StormTest.PressButton('SWIPE:1000:400:500:400')
+        self.swipe([1000,400,300,400], 2)
         StormTest.WaitSec(1)
         pass
 

@@ -5,7 +5,7 @@ from datetime import timedelta
 
 def rechargeDevice(device):
     startingDate = _readTestStartingDate()
-    if (_twoDaysArePassed(startingDate)):
+    if (_oneDayIsPassed(startingDate)):
         _goToSleep(device, startingDate) 
         _writeNewTestStartingDate()
         
@@ -23,7 +23,7 @@ def __readDate():
     return startingDate
 
 
-def _twoDaysArePassed(startingDate):
+def _oneDayIsPassed(startingDate):
     return datetime.datetime.today() - startingDate > timedelta(seconds=86400)
 
 
@@ -39,7 +39,7 @@ def __splitDate(startingDate):
 
 
 def _goToSleep(device, startDate):
-    device.recharge(21600) # 21600
+    device.recharge(14400) # 14400
     device.tap(text='Continua')
     #StormTest.WaitSec(3)
     pass

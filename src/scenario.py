@@ -13,7 +13,6 @@ def catalogAvailability(galaxyTab3, serviceInfo):
     
     catalogName = serviceInfo['name']
     result, comment, image = goToCatalog(galaxyTab3, catalogName)
-    checkCrash(galaxyTab3)
     
     _endTest('catalogBrowsing', serviceInfo, result, video, comment, image)
     StormTest.EndLogRegion('catalogBrowsing')
@@ -21,13 +20,9 @@ def catalogAvailability(galaxyTab3, serviceInfo):
 
 
 def audioVideoScenarios(galaxyTab3, serviceInfo):
-    #result1 = True
     result1 = audioPresent(galaxyTab3, serviceInfo)
-    checkCrash(galaxyTab3)
     result2 = videoMotion(galaxyTab3, serviceInfo)
-    checkCrash(galaxyTab3)
     result3 = videoPresent(galaxyTab3, serviceInfo)
-    checkCrash(galaxyTab3)
     return result1, result2, result3
 
 

@@ -5,6 +5,7 @@ from mobile_framework.android_device import AndroidDevice
 from scenario import catalogAvailability, audioVideoScenarios
 from navigateFunctions import playVideo, stopVideo, closeApp
 from recharge_device import rechargeDevice
+from check_crash import checkCrash
 
 
 if __name__ == '__main__':
@@ -28,14 +29,17 @@ if __name__ == '__main__':
         results.append(result3)
         stopVideo(galaxyTab3)
     
-    rechargeDevice(galaxyTab3)
-    closeApp(galaxyTab3)    
-    
-    print results
-    if False in results:
+    if checkCrash(galaxyTab3):
         retVal = StormTest.TM.FAIL
     else:
-        retVal = StormTest.TM.PASS
+        rechargeDevice(galaxyTab3)
+        closeApp(galaxyTab3)    
+        
+        print results
+        if False not in results and len(results) == 4:
+            retVal = StormTest.TM.PASS
+        else:
+            retVal = StormTest.TM.FAIL
     
     galaxyTab3.disconnect()
     StormTest.ReturnTestResult(retVal, False)
